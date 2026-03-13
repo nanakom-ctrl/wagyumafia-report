@@ -493,8 +493,7 @@ function generatePreview() {
   const data = collectData();
   const text = buildLineText(data);
   document.getElementById('preview-text').textContent = text;
-  const hasUrl = !!localStorage.getItem('gas_url');
-  document.getElementById('send-btn').disabled = !hasUrl;
+  document.getElementById('send-btn').disabled = false;
 }
 
 function copyPreview() {
