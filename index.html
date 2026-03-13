@@ -281,7 +281,7 @@ document.getElementById('date').addEventListener('change', function() {
 });
 
 // Load saved URL
-const savedUrl = localStorage.getItem('gas_url') || '';
+const savedUrl = 'https://script.google.com/macros/s/AKfycbyEyg_cqL-yKEwJfC88O4yYZBVJW9_h6G34osHAkgJbVmUCATyXeLvugsEkwyWdGnkE/exec';
 if (savedUrl) {
   document.getElementById('gas-url').value = savedUrl;
   document.getElementById('url-status').innerHTML = '<span class="status-badge badge-ok">✅ URL設定済み</span>';
@@ -317,7 +317,7 @@ function updateUrlStatus(url) {
 
 function saveUrl() {
   const url = document.getElementById('gas-url').value.trim();
-  localStorage.setItem('gas_url', url);
+  // URL is hardcoded
   updateUrlStatus(url);
   showToast('URLを保存しました');
 }
@@ -503,7 +503,7 @@ function copyPreview() {
 }
 
 async function sendToSheet() {
-  const gasUrl = localStorage.getItem('gas_url');
+  const gasUrl = 'https://script.google.com/macros/s/AKfycbyEyg_cqL-yKEwJfC88O4yYZBVJW9_h6G34osHAkgJbVmUCATyXeLvugsEkwyWdGnkE/exec';
   if (!gasUrl) { showToast('設定タブでGAS URLを設定してください'); return; }
 
   const btn = document.getElementById('send-btn');
