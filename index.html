@@ -204,12 +204,12 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
     <div class="section-head">営業サマリー</div>
     <div class="section-body">
       <div class="field">
-        <div class="lbl">◎ 良かった点<span class="req">*</span></div>
-        <textarea id="good" placeholder="1〜2文で簡潔に" rows="2"></textarea>
+        <div class="lbl">・今日一番良かったこと<span class="req">*</span></div>
+        <textarea id="good" placeholder="" rows="2"></textarea>
       </div>
       <div class="field">
-        <div class="lbl">△ 改善点<span class="req">*</span></div>
-        <textarea id="improve" placeholder="1〜2文で簡潔に" rows="2"></textarea>
+        <div class="lbl">・一番悪かった／改善すべきこと<span class="req">*</span></div>
+        <textarea id="improve" placeholder="" rows="2"></textarea>
       </div>
     </div>
   </div>
@@ -480,30 +480,30 @@ function buildLineText(data) {
   lines.push(`月間累計：¥${fmtMoney(data.monthly)}`);
   lines.push(`Googleレビュー：${data.rvTotal}件（${data.rvCountDiff}）評価${data.rvScore}（${data.rvScoreDiff}）`);
   lines.push(`Instagram：ストーリー${data.instaStory}件 / 投稿${data.instaPost}件`);
-  lines.push(`━━━━━━━━━━━━━━━━━`);
-  lines.push(`【営業サマリー】`);
-  lines.push(`◎ 良かった点：${data.good || '（未入力）'}`);
-  lines.push(`△ 改善点：${data.improve || '（未入力）'}`);
+  lines.push(`━━━━━━`);
+  lines.push(`【総評】`);
+  lines.push(`・今日一番良かったこと：${data.good || '（未入力）'}`);
+  lines.push(`・一番悪かった／改善すべきこと：${data.improve || '（未入力）'}`);
 
   if (data.guests.length > 0) {
-    lines.push(`━━━━━━━━━━━━━━━━━`);
+    lines.push(`━━━━━━`);
     lines.push(`【来店記録】`);
     data.guests.forEach((g, i) => {
       if (i > 0) lines.push('');
       lines.push(`${g.time}　${g.name ? g.name + 'さん' : '－'}　${g.flag}　${g.count}名`);
       lines.push(`¥${fmtMoney(g.bill)}　${g.visit}　${g.member}`);
-      lines.push(`→ ${g.episode || '（未入力）'}`);
+      lines.push(`${g.episode || '（未入力）'}`);
       lines.push(`滞在時間：${g.stay}分`);
     });
   }
 
   if (data.menuItems.length > 0) {
-    lines.push(`━━━━━━━━━━━━━━━━━`);
+    lines.push(`━━━━━━`);
     lines.push(`【売上内訳】`);
     data.menuItems.forEach(m => lines.push(`${m.name}　×　${m.qty}`));
   }
 
-  lines.push(`━━━━━━━━━━━━━━━━━`);
+  lines.push(`━━━━━━`);
   return lines.join('\n');
 }
 
