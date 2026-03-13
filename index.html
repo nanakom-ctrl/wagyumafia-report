@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>WAGYUMAFIA 日報</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F6F2;
+  --surface: #FFFFFF;
+  --surface2: #F0EFE8;
+  --ink: #1C1C18;
+  --ink2: #606058;
+  --ink3: #A0A098;
+  --gold: #B8972A;
+  --gold-light: #FBF7EC;
+  --green: #1D5C3A;
+  --green-light: #EAF3EE;
+  --red: #B03010;
+  --red-light: #FAEAE4;
+  --border: #E4E3DB;
+  --r: 12px;
+  --r-sm: 8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;}
+
+.top-bar{background:var(--ink);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.top-bar-title{font-size:13px;font-weight:700;letter-spacing:0.12em;}
+.top-bar-sub{font-size:11px;color:#888;font-family:'DM Mono',monospace;}
+
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:53px;z-index:100;}
+.tab{flex:1;padding:12px 4px;text-align:center;font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:var(--ink);border-bottom-color:var(--gold);}
+
+.screen{display:none;padding:16px;max-width:520px;margin:0 auto;padding-bottom:100px;}
+.screen.active{display:block;}
+
+.section{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.section-head{padding:12px 16px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;letter-spacing:0.1em;}
+.section-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+
+.field{display:flex;flex-direction:column;gap:5px;}
+.lbl{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:0.06em;}
+.lbl .req{color:var(--red);margin-left:3px;}
+
+input[type=text],input[type=number],input[type=date],input[type=time],textarea,select{
+  width:100%;padding:11px 13px;background:var(--bg);border:1.5px solid var(--border);
+  border-radius:var(--r-sm);font-size:14px;font-family:inherit;color:var(--ink);
+  transition:border-color .15s;-webkit-appearance:none;
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);}
+textarea{resize:vertical;min-height:72px;line-height:1.6;}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+
+.money-wrap{position:relative;}
+.money-wrap input{padding-left:28px;}
+.money-wrap::before{content:'¥';position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink2);font-size:14px;pointer-events:none;}
+
+.guest-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px;}
+.guest-card-head{background:var(--surface2);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.guest-num{font-size:12px;font-weight:700;color:var(--ink2);}
+.del-btn{background:none;border:none;color:var(--ink3);font-size:20px;cursor:pointer;padding:0 4px;line-height:1;}
+.del-btn:hover{color:var(--red);}
+.guest-body{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+
+.add-btn{width:100%;padding:12px;background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--r);color:var(--ink2);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;}
+.add-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+.menu-item{display:grid;grid-template-columns:1fr 70px 32px;gap:8px;align-items:center;}
+
+.toggle-group{display:flex;gap:6px;flex-wrap:wrap;}
+.toggle-btn{padding:8px 14px;border-radius:50px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;color:var(--ink2);}
+.toggle-btn.sel-green{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.toggle-btn.sel-red{background:var(--red-light);border-color:var(--red);color:var(--red);}
+
+.submit-bar{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:14px 20px;z-index:200;}
+.submit-btn{width:100%;padding:15px;background:var(--ink);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:0.04em;transition:background .15s;}
+.submit-btn:hover{background:#333;}
+.submit-btn:active{transform:scale(0.98);}
+.submit-btn:disabled{background:#888;cursor:not-allowed;}
+
+.preview-box{background:var(--ink);color:#f0f0e8;font-family:'DM Mono',monospace;font-size:12px;line-height:1.9;padding:18px;border-radius:var(--r);white-space:pre-wrap;word-break:break-all;}
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.copy-btn{padding:13px;background:var(--gold);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.send-btn{padding:13px;background:var(--green);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.send-btn:disabled{background:#888;cursor:not-allowed;}
+
+/* Setup screen */
+.setup-card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);padding:20px;margin-bottom:14px;}
+.setup-card h2{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--ink);}
+.step{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-text{font-size:13px;line-height:1.7;color:var(--ink2);}
+.step-text strong{color:var(--ink);}
+.url-input-wrap{margin-top:10px;}
+.url-save-btn{width:100%;margin-top:8px;padding:12px;background:var(--gold);color:#fff;border:none;border-radius:var(--r-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.status-badge{display:inline-block;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:700;margin-top:8px;}
+.badge-ok{background:var(--green-light);color:var(--green);}
+.badge-ng{background:var(--red-light);color:var(--red);}
+.badge-none{background:var(--surface2);color:var(--ink3);}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">WAGYUMAFIA</div>
+    <div class="top-bar-sub">日報入力システム</div>
+  </div>
+  <div id="today-date" style="font-size:11px;color:#888;font-family:'DM Mono',monospace;"></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('form')">入力</div>
+  <div class="tab" onclick="switchTab('preview')">確認・送信</div>
+  <div class="tab" onclick="switchTab('setup')">設定</div>
+</div>
+
+<!-- ===== FORM TAB ===== -->
+<div id="tab-form" class="screen active">
+
+  <div class="section">
+    <div class="section-head">ヘッダー情報</div>
+    <div class="section-body">
+      <div class="field">
+        <div class="lbl">テナント名<span class="req">*</span></div>
+        <input type="text" id="tenant" placeholder="例：WAGYUMAFIA The Beef">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <div class="lbl">日付<span class="req">*</span></div>
+          <input type="date" id="date">
+        </div>
+        <div class="field">
+          <div class="lbl">曜日</div>
+          <input type="text" id="weekday" readonly style="background:#eee;color:var(--ink2);">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <div class="lbl">売上<span class="req">*</span></div>
+          <div class="money-wrap"><input type="number" id="sales" placeholder="0" min="0"></div>
+        </div>
+        <div class="field">
+          <div class="lbl">月間累計<span class="req">*</span></div>
+          <div class="money-wrap"><input type="number" id="monthly" placeholder="0" min="0"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <div class="lbl">来店　組数<span class="req">*</span></div>
+          <input type="number" id="groups" placeholder="0" min="0">
+        </div>
+        <div class="field">
+          <div class="lbl">来店　名数<span class="req">*</span></div>
+          <input type="number" id="guestCount" placeholder="0" min="0">
+        </div>
+      </div>
+      <div class="lbl">Googleレビュー</div>
+      <div class="row3">
+        <div class="field"><div class="lbl">総件数</div><input type="number" id="rv-total" placeholder="0" min="0"></div>
+        <div class="field"><div class="lbl">件数増減</div><input type="text" id="rv-count-diff" placeholder="+0"></div>
+        <div class="field"><div class="lbl">評価</div><input type="text" id="rv-score" placeholder="4.5"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><div class="lbl">評価増減</div><input type="text" id="rv-score-diff" placeholder="+0.1"></div>
+      </div>
+      <div class="lbl">Instagram</div>
+      <div class="row2">
+        <div class="field"><div class="lbl">ストーリー（件数）</div><input type="number" id="insta-story" placeholder="0" min="0"></div>
+        <div class="field"><div class="lbl">投稿（件数）</div><input type="number" id="insta-post" placeholder="0" min="0"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">営業サマリー</div>
+    <div class="section-body">
+      <div class="field">
+        <div class="lbl">◎ 良かった点<span class="req">*</span></div>
+        <textarea id="good" placeholder="1〜2文で簡潔に" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <div class="lbl">△ 改善点<span class="req">*</span></div>
+        <textarea id="improve" placeholder="1〜2文で簡潔に" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">来店記録（時系列順）</div>
+    <div class="section-body" id="guest-list"></div>
+    <div style="padding:0 14px 14px;">
+      <button class="add-btn" onclick="addGuest()">＋ 来店グループを追加</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">売上内訳</div>
+    <div class="section-body" id="menu-list"></div>
+    <div style="padding:0 14px 14px;">
+      <button class="add-btn" onclick="addMenu()">＋ 品目を追加</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== PREVIEW TAB ===== -->
+<div id="tab-preview" class="screen">
+  <div class="preview-box" id="preview-text"></div>
+  <div class="action-row">
+    <button class="copy-btn" onclick="copyPreview()">📋 LINEにコピー</button>
+    <button class="send-btn" id="send-btn" onclick="sendToSheet()">📊 シートに送信</button>
+  </div>
+  <p style="font-size:11px;color:var(--ink3);margin-top:10px;text-align:center;">送信にはGASのURLを設定タブで設定してください</p>
+</div>
+
+<!-- ===== SETUP TAB ===== -->
+<div id="tab-setup" class="screen">
+  <div class="setup-card">
+    <h2>🔧 GAS連携の設定手順</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Googleスプレッドシートを新規作成</strong><br>drive.google.com で新しいスプレッドシートを作る</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>拡張機能 → Apps Script を開く</strong><br>メニューバーから「拡張機能」→「Apps Script」</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>GASスクリプトを貼り付けて保存</strong><br>配布したgas_script.jsの中身をコピーして貼り付け、保存（Ctrl+S）</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>デプロイ → 新しいデプロイ</strong><br>種類：「ウェブアプリ」/ アクセスできるユーザー：「全員」に設定してデプロイ</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text"><strong>ウェブアプリのURLをコピーして下に貼り付け</strong></div>
+    </div>
+  </div>
+
+  <div class="setup-card">
+    <h2>🔗 GAS ウェブアプリURL</h2>
+    <div class="url-input-wrap">
+      <input type="text" id="gas-url" placeholder="https://script.google.com/macros/s/..." style="font-size:12px;">
+      <button class="url-save-btn" onclick="saveUrl()">URLを保存する</button>
+    </div>
+    <div id="url-status" style="margin-top:10px;"></div>
+  </div>
+</div>
+
+<div class="submit-bar" id="submit-bar">
+  <button class="submit-btn" onclick="switchTab('preview')">確認・送信画面へ →</button>
+</div>
+
+<script>
+const DAYS = ['日','月','火','水','木','金','土'];
+let guestCount = 0;
+let menuCount = 0;
+
+const today = new Date();
+document.getElementById('today-date').textContent =
+  `${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`;
+document.getElementById('date').value = today.toISOString().split('T')[0];
+document.getElementById('weekday').value = DAYS[today.getDay()] + '曜日';
+
+document.getElementById('date').addEventListener('change', function() {
+  const d = new Date(this.value + 'T00:00:00');
+  document.getElementById('weekday').value = DAYS[d.getDay()] + '曜日';
+});
+
+// Load saved URL
+const savedUrl = localStorage.getItem('gas_url') || '';
+if (savedUrl) {
+  document.getElementById('gas-url').value = savedUrl;
+  document.getElementById('url-status').innerHTML = '<span class="status-badge badge-ok">✅ URL設定済み</span>';
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const tabMap = {form:0, preview:1, setup:2};
+  document.querySelectorAll('.tab')[tabMap[name]].classList.add('active');
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById('submit-bar').style.display = name === 'form' ? 'block' : 'none';
+  if (name === 'preview') generatePreview();
+  if (name === 'setup') loadSetup();
+}
+
+function loadSetup() {
+  const url = localStorage.getItem('gas_url') || '';
+  document.getElementById('gas-url').value = url;
+  updateUrlStatus(url);
+}
+
+function updateUrlStatus(url) {
+  const el = document.getElementById('url-status');
+  if (url && url.startsWith('https://script.google.com')) {
+    el.innerHTML = '<span class="status-badge badge-ok">✅ URL設定済み</span>';
+  } else if (url) {
+    el.innerHTML = '<span class="status-badge badge-ng">⚠️ URLの形式を確認してください</span>';
+  } else {
+    el.innerHTML = '<span class="status-badge badge-none">未設定</span>';
+  }
+}
+
+function saveUrl() {
+  const url = document.getElementById('gas-url').value.trim();
+  localStorage.setItem('gas_url', url);
+  updateUrlStatus(url);
+  showToast('URLを保存しました');
+}
+
+function addGuest() {
+  guestCount++;
+  const id = guestCount;
+  const div = document.createElement('div');
+  div.className = 'guest-card';
+  div.id = `guest-${id}`;
+  div.innerHTML = `
+    <div class="guest-card-head">
+      <span class="guest-num">グループ ${id}</span>
+      <button class="del-btn" onclick="removeEl('guest-${id}')">×</button>
+    </div>
+    <div class="guest-body">
+      <div class="row2">
+        <div class="field"><div class="lbl">来店時刻<span class="req">*</span></div><input type="time" id="g${id}-time"></div>
+        <div class="field"><div class="lbl">名前</div><input type="text" id="g${id}-name" placeholder="山田"></div>
+      </div>
+      <div class="row3">
+        <div class="field"><div class="lbl">国籍（国旗）</div><input type="text" id="g${id}-flag" placeholder="🇯🇵"></div>
+        <div class="field"><div class="lbl">人数（名）</div><input type="number" id="g${id}-count" placeholder="2" min="1"></div>
+        <div class="field"><div class="lbl">滞在（分）</div><input type="number" id="g${id}-stay" placeholder="90" min="0"></div>
+      </div>
+      <div class="field">
+        <div class="lbl">お会計</div>
+        <div class="money-wrap"><input type="number" id="g${id}-bill" placeholder="0" min="0"></div>
+      </div>
+      <div class="field">
+        <div class="lbl">来店タイプ</div>
+        <div class="toggle-group">
+          <button class="toggle-btn" data-grp="visit-${id}" data-val="初来店" onclick="selectToggle(this,'sel-green')">初来店</button>
+          <button class="toggle-btn" data-grp="visit-${id}" data-val="リピーター" onclick="selectToggle(this,'sel-green')">リピーター</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="lbl">会員ステータス</div>
+        <div class="toggle-group">
+          <button class="toggle-btn" data-grp="member-${id}" data-val="メンバー" onclick="selectToggle(this,'sel-green')">メンバー</button>
+          <button class="toggle-btn" data-grp="member-${id}" data-val="ノンメンバー" onclick="selectToggle(this,'sel-red')">ノンメンバー</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="lbl">エピソード<span class="req">*</span></div>
+        <textarea id="g${id}-episode" placeholder="来店経緯・会話・印象・次回予約の有無など2〜3文" rows="3"></textarea>
+      </div>
+    </div>`;
+  document.getElementById('guest-list').appendChild(div);
+}
+
+function addMenu() {
+  menuCount++;
+  const id = menuCount;
+  const div = document.createElement('div');
+  div.className = 'menu-item';
+  div.id = `menu-${id}`;
+  div.innerHTML = `
+    <input type="text" id="m${id}-name" placeholder="品目名">
+    <input type="number" id="m${id}-qty" placeholder="数量" min="1">
+    <button class="del-btn" onclick="removeEl('menu-${id}')">×</button>`;
+  document.getElementById('menu-list').appendChild(div);
+}
+
+function removeEl(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function selectToggle(btn, cls) {
+  const grp = btn.dataset.grp;
+  document.querySelectorAll(`[data-grp="${grp}"]`).forEach(b => b.classList.remove('sel-green','sel-red'));
+  btn.classList.add(cls);
+}
+
+function getToggleVal(grp) {
+  const el = document.querySelector(`[data-grp="${grp}"].sel-green, [data-grp="${grp}"].sel-red`);
+  return el ? el.dataset.val : '－';
+}
+
+function fmtMoney(n) {
+  if (!n && n !== 0) return '0';
+  return Number(n).toLocaleString('ja-JP');
+}
+
+function collectData() {
+  const guests = [];
+  document.querySelectorAll('.guest-card').forEach(card => {
+    const id = card.id.replace('guest-', '');
+    guests.push({
+      time: document.getElementById(`g${id}-time`)?.value || '',
+      name: document.getElementById(`g${id}-name`)?.value || '',
+      flag: document.getElementById(`g${id}-flag`)?.value || '',
+      count: document.getElementById(`g${id}-count`)?.value || '0',
+      bill: document.getElementById(`g${id}-bill`)?.value || '0',
+      stay: document.getElementById(`g${id}-stay`)?.value || '0',
+      visit: getToggleVal(`visit-${id}`),
+      member: getToggleVal(`member-${id}`),
+      episode: document.getElementById(`g${id}-episode`)?.value || '',
+    });
+  });
+
+  const menuItems = [];
+  document.querySelectorAll('.menu-item').forEach(item => {
+    const id = item.id.replace('menu-', '');
+    const name = document.getElementById(`m${id}-name`)?.value;
+    const qty = document.getElementById(`m${id}-qty`)?.value || '1';
+    if (name) menuItems.push({ name, qty });
+  });
+
+  return {
+    tenant: document.getElementById('tenant').value || '',
+    date: document.getElementById('date').value || '',
+    weekday: document.getElementById('weekday').value || '',
+    sales: document.getElementById('sales').value || '0',
+    monthly: document.getElementById('monthly').value || '0',
+    groups: document.getElementById('groups').value || '0',
+    guestCount: document.getElementById('guestCount').value || '0',
+    rvTotal: document.getElementById('rv-total').value || '0',
+    rvCountDiff: document.getElementById('rv-count-diff').value || '±0',
+    rvScore: document.getElementById('rv-score').value || '0.0',
+    rvScoreDiff: document.getElementById('rv-score-diff').value || '±0',
+    instaStory: document.getElementById('insta-story').value || '0',
+    instaPost: document.getElementById('insta-post').value || '0',
+    good: document.getElementById('good').value || '',
+    improve: document.getElementById('improve').value || '',
+    guests,
+    menuItems,
+  };
+}
+
+function buildLineText(data) {
+  const lines = [];
+  lines.push(`【日報】${data.tenant}`);
+  const d = new Date(data.date + 'T00:00:00');
+  const dateStr = data.date
+    ? `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}（${DAYS[d.getDay()]}）`
+    : '（日付未入力）';
+  lines.push(dateStr);
+  lines.push(`売上：¥${fmtMoney(data.sales)}`);
+  lines.push(`来店：${data.groups}組${data.guestCount}名`);
+  lines.push(`月間累計：¥${fmtMoney(data.monthly)}`);
+  lines.push(`Googleレビュー：${data.rvTotal}件（${data.rvCountDiff}）評価${data.rvScore}（${data.rvScoreDiff}）`);
+  lines.push(`Instagram：ストーリー${data.instaStory}件 / 投稿${data.instaPost}件`);
+  lines.push(`━━━━━━━━━━━━━━━━━`);
+  lines.push(`【営業サマリー】`);
+  lines.push(`◎ 良かった点：${data.good || '（未入力）'}`);
+  lines.push(`△ 改善点：${data.improve || '（未入力）'}`);
+
+  if (data.guests.length > 0) {
+    lines.push(`━━━━━━━━━━━━━━━━━`);
+    lines.push(`【来店記録】`);
+    data.guests.forEach((g, i) => {
+      if (i > 0) lines.push('');
+      lines.push(`${g.time}　${g.name ? g.name + 'さん' : '－'}　${g.flag}　${g.count}名`);
+      lines.push(`¥${fmtMoney(g.bill)}　${g.visit}　${g.member}`);
+      lines.push(`→ ${g.episode || '（未入力）'}`);
+      lines.push(`滞在時間：${g.stay}分`);
+    });
+  }
+
+  if (data.menuItems.length > 0) {
+    lines.push(`━━━━━━━━━━━━━━━━━`);
+    lines.push(`【売上内訳】`);
+    data.menuItems.forEach(m => lines.push(`${m.name}　×　${m.qty}`));
+  }
+
+  lines.push(`━━━━━━━━━━━━━━━━━`);
+  return lines.join('\n');
+}
+
+function generatePreview() {
+  const data = collectData();
+  const text = buildLineText(data);
+  document.getElementById('preview-text').textContent = text;
+  const hasUrl = !!localStorage.getItem('gas_url');
+  document.getElementById('send-btn').disabled = !hasUrl;
+}
+
+function copyPreview() {
+  const text = document.getElementById('preview-text').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('コピーしました！'));
+}
+
+async function sendToSheet() {
+  const gasUrl = localStorage.getItem('gas_url');
+  if (!gasUrl) { showToast('設定タブでGAS URLを設定してください'); return; }
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+
+  const data = collectData();
+  data.lineText = buildLineText(data);
+
+  try {
+    // iframeを使ったフォーム送信でCORSを回避
+    let iframe = document.getElementById('hidden-iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = 'hidden-iframe';
+      iframe.id = 'hidden-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = gasUrl;
+    form.target = 'hidden-iframe';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(data);
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    setTimeout(() => {
+      showToast('✅ スプレッドシートに送信しました！');
+      btn.textContent = '✅ 送信完了';
+      setTimeout(() => { btn.textContent = '📊 シートに送信'; btn.disabled = false; }, 3000);
+    }, 1500);
+
+  } catch (err) {
+    showToast('❌ 送信に失敗しました');
+    btn.textContent = '📊 シートに送信';
+    btn.disabled = false;
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Init
+addGuest();
+addMenu();
+</script>
+</body>
+</html>
