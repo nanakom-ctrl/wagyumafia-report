@@ -357,7 +357,86 @@ function addGuest() {
         <div class="field"><div class="lbl">名前</div><input type="text" id="g${id}-name" placeholder="山田"></div>
       </div>
       <div class="row3">
-        <div class="field"><div class="lbl">国籍（国旗）</div><input type="text" id="g${id}-flag" placeholder="🇯🇵"></div>
+        <div class="field"><div class="lbl">国籍</div>
+          <select id="g${id}-flag">
+            <option value="">選択</option>
+            <optgroup label="アジア">
+              <option value="🇯🇵">🇯🇵 日本</option>
+              <option value="🇨🇳">🇨🇳 中国</option>
+              <option value="🇰🇷">🇰🇷 韓国</option>
+              <option value="🇹🇼">🇹🇼 台湾</option>
+              <option value="🇭🇰">🇭🇰 香港</option>
+              <option value="🇸🇬">🇸🇬 シンガポール</option>
+              <option value="🇹🇭">🇹🇭 タイ</option>
+              <option value="🇻🇳">🇻🇳 ベトナム</option>
+              <option value="🇮🇩">🇮🇩 インドネシア</option>
+              <option value="🇲🇾">🇲🇾 マレーシア</option>
+              <option value="🇵🇭">🇵🇭 フィリピン</option>
+              <option value="🇮🇳">🇮🇳 インド</option>
+              <option value="🇵🇰">🇵🇰 パキスタン</option>
+              <option value="🇧🇩">🇧🇩 バングラデシュ</option>
+              <option value="🇱🇰">🇱🇰 スリランカ</option>
+              <option value="🇳🇵">🇳🇵 ネパール</option>
+              <option value="🇲🇳">🇲🇳 モンゴル</option>
+              <option value="🇰🇭">🇰🇭 カンボジア</option>
+              <option value="🇲🇲">🇲🇲 ミャンマー</option>
+              <option value="🇺🇿">🇺🇿 ウズベキスタン</option>
+            </optgroup>
+            <optgroup label="中東・アフリカ">
+              <option value="🇸🇦">🇸🇦 サウジアラビア</option>
+              <option value="🇦🇪">🇦🇪 UAE</option>
+              <option value="🇶🇦">🇶🇦 カタール</option>
+              <option value="🇰🇼">🇰🇼 クウェート</option>
+              <option value="🇧🇭">🇧🇭 バーレーン</option>
+              <option value="🇮🇱">🇮🇱 イスラエル</option>
+              <option value="🇹🇷">🇹🇷 トルコ</option>
+              <option value="🇮🇷">🇮🇷 イラン</option>
+              <option value="🇿🇦">🇿🇦 南アフリカ</option>
+              <option value="🇪🇬">🇪🇬 エジプト</option>
+              <option value="🇳🇬">🇳🇬 ナイジェリア</option>
+              <option value="🇰🇪">🇰🇪 ケニア</option>
+              <option value="🇲🇦">🇲🇦 モロッコ</option>
+            </optgroup>
+            <optgroup label="ヨーロッパ">
+              <option value="🇬🇧">🇬🇧 イギリス</option>
+              <option value="🇫🇷">🇫🇷 フランス</option>
+              <option value="🇩🇪">🇩🇪 ドイツ</option>
+              <option value="🇮🇹">🇮🇹 イタリア</option>
+              <option value="🇪🇸">🇪🇸 スペイン</option>
+              <option value="🇵🇹">🇵🇹 ポルトガル</option>
+              <option value="🇳🇱">🇳🇱 オランダ</option>
+              <option value="🇧🇪">🇧🇪 ベルギー</option>
+              <option value="🇨🇭">🇨🇭 スイス</option>
+              <option value="🇦🇹">🇦🇹 オーストリア</option>
+              <option value="🇸🇪">🇸🇪 スウェーデン</option>
+              <option value="🇳🇴">🇳🇴 ノルウェー</option>
+              <option value="🇩🇰">🇩🇰 デンマーク</option>
+              <option value="🇫🇮">🇫🇮 フィンランド</option>
+              <option value="🇵🇱">🇵🇱 ポーランド</option>
+              <option value="🇨🇿">🇨🇿 チェコ</option>
+              <option value="🇭🇺">🇭🇺 ハンガリー</option>
+              <option value="🇷🇴">🇷🇴 ルーマニア</option>
+              <option value="🇷🇺">🇷🇺 ロシア</option>
+              <option value="🇺🇦">🇺🇦 ウクライナ</option>
+              <option value="🇬🇷">🇬🇷 ギリシャ</option>
+              <option value="🇮🇪">🇮🇪 アイルランド</option>
+            </optgroup>
+            <optgroup label="北米・中南米">
+              <option value="🇺🇸">🇺🇸 アメリカ</option>
+              <option value="🇨🇦">🇨🇦 カナダ</option>
+              <option value="🇲🇽">🇲🇽 メキシコ</option>
+              <option value="🇧🇷">🇧🇷 ブラジル</option>
+              <option value="🇦🇷">🇦🇷 アルゼンチン</option>
+              <option value="🇨🇱">🇨🇱 チリ</option>
+              <option value="🇨🇴">🇨🇴 コロンビア</option>
+              <option value="🇵🇪">🇵🇪 ペルー</option>
+            </optgroup>
+            <optgroup label="オセアニア">
+              <option value="🇦🇺">🇦🇺 オーストラリア</option>
+              <option value="🇳🇿">🇳🇿 ニュージーランド</option>
+            </optgroup>
+          </select>
+        </div>
         <div class="field"><div class="lbl">人数（名）</div><input type="number" id="g${id}-count" placeholder="2" min="1"></div>
         <div class="field"><div class="lbl">滞在（分）</div><input type="number" id="g${id}-stay" placeholder="90" min="0"></div>
       </div>
@@ -490,7 +569,7 @@ function buildLineText(data) {
     lines.push(`【来店記録】`);
     data.guests.forEach((g, i) => {
       if (i > 0) lines.push('');
-      lines.push(`${g.time}　${g.name ? g.name + 'さん' : '－'}　${g.flag}　${g.count}名`);
+      lines.push(`${g.time} ${g.name ? g.name + 'さん' : '－'}${g.flag} ${g.count}名`);
       lines.push(`¥${fmtMoney(g.bill)}　${g.visit}　${g.member}`);
       lines.push(`${g.episode || '（未入力）'}`);
       lines.push(`滞在時間：${g.stay}分`);
