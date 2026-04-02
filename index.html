@@ -133,7 +133,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
     <div class="section-body">
       <div class="field">
         <div class="lbl">テナント名<span class="req">*</span></div>
-        <select id="tenant">
+        <select id="tenant" onchange="loadSquareMenu(this.value)">
         <option value="">選択してください</option>
         <option value="BY">BY</option>
         <option value="TERUZUSHI">TERUZUSHI</option>
@@ -473,15 +473,30 @@ function addMenu() {
   div.className = 'menu-item';
   div.id = `menu-${id}`;
   div.innerHTML = `
-    <input type="text" id="m${id}-name" placeholder="品目名">
+    <select id="m${id}-name" class="item-select" onchange="handleMenuSelectChange(this, '${id}')">
+      <option value="">品目を選択</option>
+    </select>
+    <input type="text" id="m${id}-name-other" placeholder="品目名を入力" style="display:none;margin-top:6px;">
     <input type="number" id="m${id}-qty" placeholder="数量" min="1">
     <button class="del-btn" onclick="removeEl('menu-${id}')">×</button>`;
+  const sel = div.querySelector('.item-select');
+  updateMenuSelect(sel);
   document.getElementById('menu-list').appendChild(div);
 }
 
 function removeEl(id) {
   const el = document.getElementById(id);
   if (el) el.remove();
+}
+
+function handleMenuSelectChange(sel, id) {
+  const otherInput = document.getElementById('m' + id + '-name-other');
+  if (sel.value === '__other__') {
+    otherInput.style.display = 'block';
+    otherInput.focus();
+  } else {
+    otherInput.style.display = 'none';
+  }
 }
 
 function selectToggle(btn, cls) {
@@ -522,7 +537,11 @@ function collectData() {
     const id = item.id.replace('menu-', '');
     const name = document.getElementById(`m${id}-name`)?.value;
     const qty = document.getElementById(`m${id}-qty`)?.value || '1';
-    if (name) menuItems.push({ name, qty });
+    // 手入力の場合はother inputから取得
+    const otherInput = document.getElementById('m' + i + '-name-other');
+    let finalName = name;
+    if (name === '__other__' && otherInput) finalName = otherInput.value.trim();
+    if (finalName && finalName !== '__other__') menuItems.push({ name: finalName, qty });
   });
 
   return {
@@ -600,6 +619,50 @@ function copyPreview() {
 
 async function sendToSheet() {
   const gasUrl = 'https://script.google.com/macros/s/AKfycbxHpsrQSUSJ9Pdx8I5kUGAZmkG8xCTZdE9k_dvmk3gJhMfYqvXaEMwnzZrPsUe6_4qh/exec';
+const menuGasUrl = 'https://script.google.com/macros/s/AKfycbyNC4gPA1sUUJKz2YDGa9zyThRgNkjctF5m0OFGzcbqe1aiL8WJOvUD97wClFFptuFo/exec';
+
+let squareMenuItems = [];
+
+async function loadSquareMenu(tenantName) {
+  if (!tenantName) return;
+  try {
+    const res = await fetch(menuGasUrl + '?tenant=' + encodeURIComponent(tenantName));
+    const items = await res.json();
+    squareMenuItems = items;
+    document.querySelectorAll('.item-select').forEach(sel => updateMenuSelect(sel));
+  } catch(e) {
+    console.log('メニュー取得失敗', e);
+  }
+}
+
+function updateMenuSelect(sel) {
+  const currentVal = sel.value;
+  const grouped = {};
+  squareMenuItems.forEach(item => {
+    if (!grouped[item.category]) grouped[item.category] = [];
+    grouped[item.category].push(item.name);
+  });
+  sel.innerHTML = '<option value="">品目を選択</option>';
+  Object.keys(grouped).sort().forEach(cat => {
+    const og = document.createElement('optgroup');
+    og.label = cat;
+    grouped[cat].sort().forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      if (name === currentVal) opt.selected = true;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+  const og2 = document.createElement('optgroup');
+  og2.label = '── その他 ──';
+  const optOther = document.createElement('option');
+  optOther.value = '__other__';
+  optOther.textContent = '手入力する';
+  og2.appendChild(optOther);
+  sel.appendChild(og2);
+}
 
   const btn = document.getElementById('send-btn');
   btn.disabled = true;
