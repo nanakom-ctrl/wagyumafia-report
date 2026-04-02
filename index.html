@@ -25,26 +25,20 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;}
-
 .top-bar{background:var(--ink);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
 .top-bar-title{font-size:13px;font-weight:700;letter-spacing:0.12em;}
 .top-bar-sub{font-size:11px;color:#888;font-family:'DM Mono',monospace;}
-
 .tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:53px;z-index:100;}
 .tab{flex:1;padding:12px 4px;text-align:center;font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
 .tab.active{color:var(--ink);border-bottom-color:var(--gold);}
-
 .screen{display:none;padding:16px;max-width:520px;margin:0 auto;padding-bottom:100px;}
 .screen.active{display:block;}
-
 .section{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
 .section-head{padding:12px 16px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;letter-spacing:0.1em;}
 .section-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
-
 .field{display:flex;flex-direction:column;gap:5px;}
 .lbl{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:0.06em;}
 .lbl .req{color:var(--red);margin-left:3px;}
-
 input[type=text],input[type=number],input[type=date],input[type=time],textarea,select{
   width:100%;padding:11px 13px;background:var(--bg);border:1.5px solid var(--border);
   border-radius:var(--r-sm);font-size:14px;font-family:inherit;color:var(--ink);
@@ -52,44 +46,35 @@ input[type=text],input[type=number],input[type=date],input[type=time],textarea,s
 }
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);}
 textarea{resize:vertical;min-height:72px;line-height:1.6;}
-
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-
 .money-wrap{position:relative;}
 .money-wrap input{padding-left:28px;}
 .money-wrap::before{content:'¥';position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink2);font-size:14px;pointer-events:none;}
-
 .guest-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px;}
 .guest-card-head{background:var(--surface2);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
 .guest-num{font-size:12px;font-weight:700;color:var(--ink2);}
 .del-btn{background:none;border:none;color:var(--ink3);font-size:20px;cursor:pointer;padding:0 4px;line-height:1;}
 .del-btn:hover{color:var(--red);}
 .guest-body{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
-
 .add-btn{width:100%;padding:12px;background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--r);color:var(--ink2);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;}
 .add-btn:hover{border-color:var(--gold);color:var(--gold);}
-
-.menu-item{display:grid;grid-template-columns:1fr 70px 32px;gap:8px;align-items:center;}
-
+.menu-item{margin-bottom:8px;}
+.menu-item-row{display:grid;grid-template-columns:1fr 70px 32px;gap:8px;align-items:center;}
 .toggle-group{display:flex;gap:6px;flex-wrap:wrap;}
 .toggle-btn{padding:8px 14px;border-radius:50px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;color:var(--ink2);}
 .toggle-btn.sel-green{background:var(--green-light);border-color:var(--green);color:var(--green);}
 .toggle-btn.sel-red{background:var(--red-light);border-color:var(--red);color:var(--red);}
-
 .submit-bar{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:14px 20px;z-index:200;}
 .submit-btn{width:100%;padding:15px;background:var(--ink);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:0.04em;transition:background .15s;}
 .submit-btn:hover{background:#333;}
 .submit-btn:active{transform:scale(0.98);}
 .submit-btn:disabled{background:#888;cursor:not-allowed;}
-
 .preview-box{background:var(--ink);color:#f0f0e8;font-family:'DM Mono',monospace;font-size:12px;line-height:1.9;padding:18px;border-radius:var(--r);white-space:pre-wrap;word-break:break-all;}
 .action-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
 .copy-btn{padding:13px;background:var(--gold);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .send-btn{padding:13px;background:var(--green);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .send-btn:disabled{background:#888;cursor:not-allowed;}
-
-/* Setup screen */
 .setup-card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);padding:20px;margin-bottom:14px;}
 .setup-card h2{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--ink);}
 .step{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;}
@@ -102,7 +87,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .badge-ok{background:var(--green-light);color:var(--green);}
 .badge-ng{background:var(--red-light);color:var(--red);}
 .badge-none{background:var(--surface2);color:var(--ink3);}
-
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
 </style>
@@ -125,7 +109,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
   <div class="tab" onclick="switchTab('setup')">設定</div>
 </div>
 
-<!-- ===== FORM TAB ===== -->
+<!-- FORM TAB -->
 <div id="tab-form" class="screen active">
 
   <div class="section">
@@ -134,24 +118,24 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
       <div class="field">
         <div class="lbl">テナント名<span class="req">*</span></div>
         <select id="tenant" onchange="loadSquareMenu(this.value)">
-        <option value="">選択してください</option>
-        <option value="WAGYUMAFIA THE CUTLET SANDWICH">WAGYUMAFIA THE CUTLET SANDWICH</option>
-        <option value="WAGYUMAFIA THE BUTCHER'S KITCHEN">WAGYUMAFIA THE BUTCHER'S KITCHEN</option>
-        <option value="YAKINIKUMAFIA">YAKINIKUMAFIA</option>
-        <option value="WAGYUMAFIA THE BURGER">WAGYUMAFIA THE BURGER</option>
-        <option value="WM BY WAGYUMAFIA">WM BY WAGYUMAFIA</option>
-        <option value="SUSHIMAFIA">SUSHIMAFIA</option>
-        <option value="YATCHABAR">YATCHABAR</option>
-        <option value="THE KITCHEN">THE KITCHEN</option>
-        <option value="WAGYUMAFIA SMASH BURGER">WAGYUMAFIA SMASH BURGER</option>
-        <option value="WAGYUMAFIA THE CUTLET SANDWICH KYOTO">WAGYUMAFIA THE CUTLET SANDWICH KYOTO</option>
-        <option value="MASHI NO MASHI TOKYO">MASHI NO MASHI TOKYO</option>
-        <option value="WAGYUMAFIA ULTRA">WAGYUMAFIA ULTRA</option>
-        <option value="TERUZUSHI">TERUZUSHI</option>
-        <option value="BAR">BAR</option>
-        <option value="OLYMPIC">OLYMPIC</option>
-        <option value="YM">YM</option>
-      </select>
+          <option value="">選択してください</option>
+          <option value="WAGYUMAFIA THE CUTLET SANDWICH">WAGYUMAFIA THE CUTLET SANDWICH</option>
+          <option value="WAGYUMAFIA THE BUTCHER'S KITCHEN">WAGYUMAFIA THE BUTCHER'S KITCHEN</option>
+          <option value="YAKINIKUMAFIA">YAKINIKUMAFIA</option>
+          <option value="WAGYUMAFIA THE BURGER">WAGYUMAFIA THE BURGER</option>
+          <option value="WM BY WAGYUMAFIA">WM BY WAGYUMAFIA</option>
+          <option value="SUSHIMAFIA">SUSHIMAFIA</option>
+          <option value="YATCHABAR">YATCHABAR</option>
+          <option value="THE KITCHEN">THE KITCHEN</option>
+          <option value="WAGYUMAFIA SMASH BURGER">WAGYUMAFIA SMASH BURGER</option>
+          <option value="WAGYUMAFIA THE CUTLET SANDWICH KYOTO">WAGYUMAFIA THE CUTLET SANDWICH KYOTO</option>
+          <option value="MASHI NO MASHI TOKYO">MASHI NO MASHI TOKYO</option>
+          <option value="WAGYUMAFIA ULTRA">WAGYUMAFIA ULTRA</option>
+          <option value="TERUZUSHI">TERUZUSHI</option>
+          <option value="BAR">BAR</option>
+          <option value="OLYMPIC">OLYMPIC</option>
+          <option value="YM">YM</option>
+        </select>
       </div>
       <div class="row2">
         <div class="field">
@@ -205,11 +189,11 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
     <div class="section-body">
       <div class="field">
         <div class="lbl">・今日一番良かったこと<span class="req">*</span></div>
-        <textarea id="good" placeholder="" rows="2"></textarea>
+        <textarea id="good" rows="2"></textarea>
       </div>
       <div class="field">
         <div class="lbl">・一番悪かった／改善すべきこと<span class="req">*</span></div>
-        <textarea id="improve" placeholder="" rows="2"></textarea>
+        <textarea id="improve" rows="2"></textarea>
       </div>
     </div>
   </div>
@@ -232,44 +216,19 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 
 </div>
 
-<!-- ===== PREVIEW TAB ===== -->
+<!-- PREVIEW TAB -->
 <div id="tab-preview" class="screen">
   <div class="preview-box" id="preview-text"></div>
   <div class="action-row">
     <button class="copy-btn" onclick="copyPreview()">📋 LINEにコピー</button>
     <button class="send-btn" id="send-btn" onclick="sendToSheet()">📊 シートに送信</button>
   </div>
-  <p style="font-size:11px;color:var(--ink3);margin-top:10px;text-align:center;">送信にはGASのURLを設定タブで設定してください</p>
 </div>
 
-<!-- ===== SETUP TAB ===== -->
+<!-- SETUP TAB -->
 <div id="tab-setup" class="screen">
   <div class="setup-card">
-    <h2>🔧 GAS連携の設定手順</h2>
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-text"><strong>Googleスプレッドシートを新規作成</strong><br>drive.google.com で新しいスプレッドシートを作る</div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-text"><strong>拡張機能 → Apps Script を開く</strong><br>メニューバーから「拡張機能」→「Apps Script」</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-text"><strong>GASスクリプトを貼り付けて保存</strong><br>配布したgas_script.jsの中身をコピーして貼り付け、保存（Ctrl+S）</div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-text"><strong>デプロイ → 新しいデプロイ</strong><br>種類：「ウェブアプリ」/ アクセスできるユーザー：「全員」に設定してデプロイ</div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div class="step-text"><strong>ウェブアプリのURLをコピーして下に貼り付け</strong></div>
-    </div>
-  </div>
-
-  <div class="setup-card">
-    <h2>🔗 GAS ウェブアプリURL</h2>
+    <h2>🔧 GAS連携設定</h2>
     <div class="url-input-wrap">
       <input type="text" id="gas-url" placeholder="https://script.google.com/macros/s/..." style="font-size:12px;">
       <button class="url-save-btn" onclick="saveUrl()">URLを保存する</button>
@@ -279,14 +238,18 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 </div>
 
 <div class="submit-bar" id="submit-bar">
-  <button class="submit-btn" onclick="switchTab('preview')">確認・送信画面へ →</button>
+  <button class="submit-btn" onclick="goToPreview()">確認・送信画面へ →</button>
 </div>
 
 <script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxHpsrQSUSJ9Pdx8I5kUGAZmkG8xCTZdE9k_dvmk3gJhMfYqvXaEMwnzZrPsUe6_4qh/exec';
+const MENU_GAS_URL = 'https://script.google.com/macros/s/AKfycbyNC4gPA1sUUJKz2YDGa9zyThRgNkjctF5m0OFGzcbqe1aiL8WJOvUD97wClFFptuFo/exec';
 const DAYS = ['日','月','火','水','木','金','土'];
 let guestCount = 0;
 let menuCount = 0;
+let squareMenuItems = [];
 
+// 初期化
 const today = new Date();
 document.getElementById('today-date').textContent =
   `${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`;
@@ -298,54 +261,89 @@ document.getElementById('date').addEventListener('change', function() {
   document.getElementById('weekday').value = DAYS[d.getDay()] + '曜日';
 });
 
-// Load saved URL
-const savedUrl = 'https://script.google.com/macros/s/AKfycbyEyg_cqL-yKEwJfC88O4yYZBVJW9_h6G34osHAkgJbVmUCATyXeLvugsEkwyWdGnkE/exec';
-if (savedUrl) {
-  document.getElementById('gas-url').value = savedUrl;
-  document.getElementById('url-status').innerHTML = '<span class="status-badge badge-ok">✅ URL設定済み</span>';
-}
-
+// タブ切り替え
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const tabMap = {form:0, preview:1, setup:2};
   document.querySelectorAll('.tab')[tabMap[name]].classList.add('active');
-  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
   document.getElementById('submit-bar').style.display = name === 'form' ? 'block' : 'none';
   if (name === 'preview') generatePreview();
-  if (name === 'setup') loadSetup();
 }
 
-function loadSetup() {
-  const url = localStorage.getItem('gas_url') || '';
-  document.getElementById('gas-url').value = url;
-  updateUrlStatus(url);
+// 必須チェック → プレビューへ
+function goToPreview() {
+  const tenant = document.getElementById('tenant').value;
+  const date = document.getElementById('date').value;
+  const sales = document.getElementById('sales').value;
+  const monthly = document.getElementById('monthly').value;
+  const groups = document.getElementById('groups').value;
+  const guestCnt = document.getElementById('guestCount').value;
+  const good = document.getElementById('good').value.trim();
+  const improve = document.getElementById('improve').value.trim();
+
+  if (!tenant) { showToast('⚠️ テナント名を選択してください'); return; }
+  if (!date) { showToast('⚠️ 日付を入力してください'); return; }
+  if (!sales && sales !== '0') { showToast('⚠️ 売上を入力してください'); return; }
+  if (!monthly && monthly !== '0') { showToast('⚠️ 月間累計を入力してください'); return; }
+  if (!groups && groups !== '0') { showToast('⚠️ 来店組数を入力してください'); return; }
+  if (!guestCnt && guestCnt !== '0') { showToast('⚠️ 来店名数を入力してください'); return; }
+  if (!good) { showToast('⚠️ 良かったことを入力してください'); return; }
+  if (!improve) { showToast('⚠️ 改善点を入力してください'); return; }
+
+  switchTab('preview');
 }
 
-function updateUrlStatus(url) {
-  const el = document.getElementById('url-status');
-  if (url && url.startsWith('https://script.google.com')) {
-    el.innerHTML = '<span class="status-badge badge-ok">✅ URL設定済み</span>';
-  } else if (url) {
-    el.innerHTML = '<span class="status-badge badge-ng">⚠️ URLの形式を確認してください</span>';
-  } else {
-    el.innerHTML = '<span class="status-badge badge-none">未設定</span>';
+// Square メニュー読み込み
+async function loadSquareMenu(tenantName) {
+  if (!tenantName) return;
+  try {
+    const res = await fetch(MENU_GAS_URL + '?tenant=' + encodeURIComponent(tenantName));
+    squareMenuItems = await res.json();
+    document.querySelectorAll('.item-select').forEach(sel => updateMenuSelect(sel));
+  } catch(e) {
+    console.log('メニュー取得失敗', e);
   }
 }
 
-function saveUrl() {
-  const url = document.getElementById('gas-url').value.trim();
-  // URL is hardcoded
-  updateUrlStatus(url);
-  showToast('URLを保存しました');
+function updateMenuSelect(sel) {
+  const currentVal = sel.value;
+  const grouped = {};
+  squareMenuItems.forEach(item => {
+    if (!grouped[item.category]) grouped[item.category] = [];
+    grouped[item.category].push(item.name);
+  });
+  sel.innerHTML = '<option value="">品目を選択</option>';
+  Object.keys(grouped).sort().forEach(cat => {
+    const og = document.createElement('optgroup');
+    og.label = cat;
+    grouped[cat].sort().forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      if (name === currentVal) opt.selected = true;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+  const og2 = document.createElement('optgroup');
+  og2.label = '── その他 ──';
+  const optOther = document.createElement('option');
+  optOther.value = '__other__';
+  optOther.textContent = '手入力する';
+  og2.appendChild(optOther);
+  sel.appendChild(og2);
+  sel.value = currentVal;
 }
 
+// 来店グループ追加
 function addGuest() {
   guestCount++;
   const id = guestCount;
   const div = document.createElement('div');
   div.className = 'guest-card';
-  div.id = `guest-${id}`;
+  div.id = 'guest-' + id;
   div.innerHTML = `
     <div class="guest-card-head">
       <span class="guest-num">グループ ${id}</span>
@@ -353,7 +351,7 @@ function addGuest() {
     </div>
     <div class="guest-body">
       <div class="row2">
-        <div class="field"><div class="lbl">来店時刻<span class="req">*</span></div><input type="time" id="g${id}-time"></div>
+        <div class="field"><div class="lbl">来店時刻</div><input type="time" id="g${id}-time"></div>
         <div class="field"><div class="lbl">名前</div><input type="text" id="g${id}-name" placeholder="山田"></div>
       </div>
       <div class="row3">
@@ -459,34 +457,32 @@ function addGuest() {
         </div>
       </div>
       <div class="field">
-        <div class="lbl">エピソード<span class="req">*</span></div>
-        <textarea id="g${id}-episode" placeholder="来店経緯・会話・印象・次回予約の有無など2〜3文" rows="3"></textarea>
+        <div class="lbl">エピソード</div>
+        <textarea id="g${id}-episode" placeholder="来店経緯・会話・印象・次回予約の有無など" rows="3"></textarea>
       </div>
     </div>`;
   document.getElementById('guest-list').appendChild(div);
 }
 
+// 品目追加
 function addMenu() {
   menuCount++;
   const id = menuCount;
   const div = document.createElement('div');
   div.className = 'menu-item';
-  div.id = `menu-${id}`;
+  div.id = 'menu-' + id;
   div.innerHTML = `
-    <select id="m${id}-name" class="item-select" onchange="handleMenuSelectChange(this, '${id}')">
-      <option value="">品目を選択</option>
-    </select>
-    <input type="text" id="m${id}-name-other" placeholder="品目名を入力" style="display:none;margin-top:6px;">
-    <input type="number" id="m${id}-qty" placeholder="数量" min="1">
-    <button class="del-btn" onclick="removeEl('menu-${id}')">×</button>`;
+    <div class="menu-item-row">
+      <select id="m${id}-name" class="item-select" onchange="handleMenuSelectChange(this,'${id}')">
+        <option value="">品目を選択</option>
+      </select>
+      <input type="number" id="m${id}-qty" placeholder="数量" min="1">
+      <button class="del-btn" onclick="removeEl('menu-${id}')">×</button>
+    </div>
+    <input type="text" id="m${id}-name-other" placeholder="品目名を手入力" style="display:none;margin-top:6px;width:100%;">`;
   const sel = div.querySelector('.item-select');
   updateMenuSelect(sel);
   document.getElementById('menu-list').appendChild(div);
-}
-
-function removeEl(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
 }
 
 function handleMenuSelectChange(sel, id) {
@@ -499,14 +495,19 @@ function handleMenuSelectChange(sel, id) {
   }
 }
 
+function removeEl(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
 function selectToggle(btn, cls) {
   const grp = btn.dataset.grp;
-  document.querySelectorAll(`[data-grp="${grp}"]`).forEach(b => b.classList.remove('sel-green','sel-red'));
+  document.querySelectorAll('[data-grp="' + grp + '"]').forEach(b => b.classList.remove('sel-green','sel-red'));
   btn.classList.add(cls);
 }
 
 function getToggleVal(grp) {
-  const el = document.querySelector(`[data-grp="${grp}"].sel-green, [data-grp="${grp}"].sel-red`);
+  const el = document.querySelector('[data-grp="' + grp + '"].sel-green, [data-grp="' + grp + '"].sel-red');
   return el ? el.dataset.val : '－';
 }
 
@@ -520,28 +521,29 @@ function collectData() {
   document.querySelectorAll('.guest-card').forEach(card => {
     const id = card.id.replace('guest-', '');
     guests.push({
-      time: document.getElementById(`g${id}-time`)?.value || '',
-      name: document.getElementById(`g${id}-name`)?.value || '',
-      flag: document.getElementById(`g${id}-flag`)?.value || '',
-      count: document.getElementById(`g${id}-count`)?.value || '0',
-      bill: document.getElementById(`g${id}-bill`)?.value || '0',
-      stay: document.getElementById(`g${id}-stay`)?.value || '0',
-      visit: getToggleVal(`visit-${id}`),
-      member: getToggleVal(`member-${id}`),
-      episode: document.getElementById(`g${id}-episode`)?.value || '',
+      time: document.getElementById('g' + id + '-time')?.value || '',
+      name: document.getElementById('g' + id + '-name')?.value || '',
+      flag: document.getElementById('g' + id + '-flag')?.value || '',
+      count: document.getElementById('g' + id + '-count')?.value || '0',
+      bill: document.getElementById('g' + id + '-bill')?.value || '0',
+      stay: document.getElementById('g' + id + '-stay')?.value || '0',
+      visit: getToggleVal('visit-' + id),
+      member: getToggleVal('member-' + id),
+      episode: document.getElementById('g' + id + '-episode')?.value || '',
     });
   });
 
   const menuItems = [];
   document.querySelectorAll('.menu-item').forEach(item => {
     const id = item.id.replace('menu-', '');
-    const name = document.getElementById(`m${id}-name`)?.value;
-    const qty = document.getElementById(`m${id}-qty`)?.value || '1';
-    // 手入力の場合はother inputから取得
-    const otherInput = document.getElementById('m' + i + '-name-other');
-    let finalName = name;
-    if (name === '__other__' && otherInput) finalName = otherInput.value.trim();
-    if (finalName && finalName !== '__other__') menuItems.push({ name: finalName, qty });
+    const sel = document.getElementById('m' + id + '-name');
+    const qty = document.getElementById('m' + id + '-qty')?.value || '1';
+    let name = sel?.value || '';
+    if (name === '__other__') {
+      const other = document.getElementById('m' + id + '-name-other');
+      name = other?.value.trim() || '';
+    }
+    if (name) menuItems.push({ name, qty });
   });
 
   return {
@@ -567,49 +569,47 @@ function collectData() {
 
 function buildLineText(data) {
   const lines = [];
-  lines.push(`【日報】${data.tenant}`);
+  lines.push('【日報】' + data.tenant);
   const d = new Date(data.date + 'T00:00:00');
   const dateStr = data.date
     ? `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}（${DAYS[d.getDay()]}）`
     : '（日付未入力）';
   lines.push(dateStr);
-  lines.push(`売上：¥${fmtMoney(data.sales)}`);
-  lines.push(`来店：${data.groups}組${data.guestCount}名`);
-  lines.push(`月間累計：¥${fmtMoney(data.monthly)}`);
-  lines.push(`Googleレビュー：${data.rvTotal}件（${data.rvCountDiff}）評価${data.rvScore}（${data.rvScoreDiff}）`);
-  lines.push(`Instagram：ストーリー${data.instaStory}件 / 投稿${data.instaPost}件`);
-  lines.push(`━━━━━━`);
-  lines.push(`【総評】`);
-  lines.push(`・今日一番良かったこと：${data.good || '（未入力）'}`);
-  lines.push(`・一番悪かった／改善すべきこと：${data.improve || '（未入力）'}`);
+  lines.push('売上：¥' + fmtMoney(data.sales));
+  lines.push('来店：' + data.groups + '組' + data.guestCount + '名');
+  lines.push('月間累計：¥' + fmtMoney(data.monthly));
+  lines.push('Googleレビュー：' + data.rvTotal + '件（' + data.rvCountDiff + '）評価' + data.rvScore + '（' + data.rvScoreDiff + '）');
+  lines.push('Instagram：ストーリー' + data.instaStory + '件 / 投稿' + data.instaPost + '件');
+  lines.push('━━━━━━');
+  lines.push('【総評】');
+  lines.push('・今日一番良かったこと：' + (data.good || '（未入力）'));
+  lines.push('・一番悪かった／改善すべきこと：' + (data.improve || '（未入力）'));
 
   if (data.guests.length > 0) {
-    lines.push(`━━━━━━`);
-    lines.push(`【来店記録】`);
+    lines.push('━━━━━━');
+    lines.push('【来店記録】');
     data.guests.forEach((g, i) => {
       if (i > 0) lines.push('');
-      lines.push(`${g.time} ${g.name ? g.name + 'さん' : '－'}${g.flag} ${g.count}名`);
-      lines.push(`¥${fmtMoney(g.bill)}　${g.visit}　${g.member}`);
-      lines.push(`${g.episode || '（未入力）'}`);
-      lines.push(`滞在時間：${g.stay}分`);
+      lines.push(g.time + ' ' + (g.name ? g.name + 'さん' : '－') + g.flag + ' ' + g.count + '名');
+      lines.push('¥' + fmtMoney(g.bill) + '　' + g.visit + '　' + g.member);
+      lines.push(g.episode || '（未入力）');
+      lines.push('滞在時間：' + g.stay + '分');
     });
   }
 
   if (data.menuItems.length > 0) {
-    lines.push(`━━━━━━`);
-    lines.push(`【売上内訳】`);
-    data.menuItems.forEach(m => lines.push(`${m.name}　×　${m.qty}`));
+    lines.push('━━━━━━');
+    lines.push('【売上内訳】');
+    data.menuItems.forEach(m => lines.push(m.name + '　×　' + m.qty));
   }
 
-  lines.push(`━━━━━━`);
+  lines.push('━━━━━━');
   return lines.join('\n');
 }
 
 function generatePreview() {
   const data = collectData();
-  const text = buildLineText(data);
-  document.getElementById('preview-text').textContent = text;
-  document.getElementById('send-btn').disabled = false;
+  document.getElementById('preview-text').textContent = buildLineText(data);
 }
 
 function copyPreview() {
@@ -618,52 +618,6 @@ function copyPreview() {
 }
 
 async function sendToSheet() {
-  const gasUrl = 'https://script.google.com/macros/s/AKfycbxHpsrQSUSJ9Pdx8I5kUGAZmkG8xCTZdE9k_dvmk3gJhMfYqvXaEMwnzZrPsUe6_4qh/exec';
-const menuGasUrl = 'https://script.google.com/macros/s/AKfycbyNC4gPA1sUUJKz2YDGa9zyThRgNkjctF5m0OFGzcbqe1aiL8WJOvUD97wClFFptuFo/exec';
-
-let squareMenuItems = [];
-
-async function loadSquareMenu(tenantName) {
-  if (!tenantName) return;
-  try {
-    const res = await fetch(menuGasUrl + '?tenant=' + encodeURIComponent(tenantName));
-    const items = await res.json();
-    squareMenuItems = items;
-    document.querySelectorAll('.item-select').forEach(sel => updateMenuSelect(sel));
-  } catch(e) {
-    console.log('メニュー取得失敗', e);
-  }
-}
-
-function updateMenuSelect(sel) {
-  const currentVal = sel.value;
-  const grouped = {};
-  squareMenuItems.forEach(item => {
-    if (!grouped[item.category]) grouped[item.category] = [];
-    grouped[item.category].push(item.name);
-  });
-  sel.innerHTML = '<option value="">品目を選択</option>';
-  Object.keys(grouped).sort().forEach(cat => {
-    const og = document.createElement('optgroup');
-    og.label = cat;
-    grouped[cat].sort().forEach(name => {
-      const opt = document.createElement('option');
-      opt.value = name;
-      opt.textContent = name;
-      if (name === currentVal) opt.selected = true;
-      og.appendChild(opt);
-    });
-    sel.appendChild(og);
-  });
-  const og2 = document.createElement('optgroup');
-  og2.label = '── その他 ──';
-  const optOther = document.createElement('option');
-  optOther.value = '__other__';
-  optOther.textContent = '手入力する';
-  og2.appendChild(optOther);
-  sel.appendChild(og2);
-}
-
   const btn = document.getElementById('send-btn');
   btn.disabled = true;
   btn.textContent = '送信中...';
@@ -674,21 +628,19 @@ function updateMenuSelect(sel) {
   try {
     const params = new URLSearchParams();
     params.append('payload', JSON.stringify(data));
-
-    await fetch(gasUrl, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: params,
-    });
-
+    await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: params });
     showToast('✅ スプレッドシートに送信しました！');
     btn.textContent = '✅ 送信完了';
     setTimeout(() => { btn.textContent = '📊 シートに送信'; btn.disabled = false; }, 3000);
   } catch (err) {
-    showToast('❌ 送信に失敗しました: ' + err.message);
+    showToast('❌ 送信に失敗しました');
     btn.textContent = '📊 シートに送信';
     btn.disabled = false;
   }
+}
+
+function saveUrl() {
+  showToast('URLを保存しました');
 }
 
 function showToast(msg) {
@@ -698,7 +650,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// Init
+// 初期表示
 addGuest();
 addMenu();
 </script>
